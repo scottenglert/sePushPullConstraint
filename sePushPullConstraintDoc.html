@@ -1,0 +1,157 @@
+<html><body>
+<h1 id="super">sePushPullConstraint</h1>
+<p>This dependency graph node is a tranformation constraint which has one target transform and one constrained transform connected. This node will push or pull the constrained object at a fixed distance from the target object. It will give the effect of a trailer attached to a hitch on a vehicle or something similar. Due to the dynamic nature of calculating the position of the constraint, time is an input to this node with a start frame and start position to activate and reset the position.</p>
+<p>Included in this plugin is a mel command to automatically setup the connections and attributes for the two objects you want to use. Note: you may have to scrub the timeline to refresh the evaluation of the node once connected. </p>
+<p><strong>MEL command:</strong></p>
+<p>sePushPullConstraint [flags] [target] [constrained] </p>
+<p>If the target and constrained objects are not provided then the current selection is used.</p>
+<table width="100%" border="0">
+  <tr>
+    <th bgcolor="#CCCCCC" width="16%">flag</th>
+    <th bgcolor="#CCCCCC" width="30%">description</th>
+    <th bgcolor="#CCCCCC" width="13%">type</th>
+    <th bgcolor="#CCCCCC" width="41%">default</th>
+  </tr>
+  <tr>
+    <th bgcolor="#EEEEEE"><div align="left"><b><code>-name (-n) </code></b></div></th>
+    <th bgcolor="#EEEEEE"><div align="left"><b><code>set name of the constraint node </code></b></div></th>
+    <th bgcolor="#EEEEEE"><div align="left"><b><code>string</code></b></div></th>
+    <th bgcolor="#EEEEEE"><div align="left"><b><code>sePushPullConstraint#</code></b></div></th>
+  </tr>
+  <tr>
+    <th bgcolor="#EEEEEE"><div align="left"><b><code>-distance (-d) </code></b></div></th>
+    <th bgcolor="#EEEEEE"><div align="left"><b><code>set the distance between the target and the constrained objects </code></b></div></th>
+    <th bgcolor="#EEEEEE"><div align="left"><b><code>double</code></b></div></th>
+    <th bgcolor="#EEEEEE"><div align="left"><b><code>distance calculated from the current positions from the target and the constrained </code></b></div></th>
+  </tr>
+  <tr>
+    <th bgcolor="#EEEEEE"><div align="left"><b><code>-startFrame (-sf) </code></b></div></th>
+    <th bgcolor="#EEEEEE"><div align="left"><b><code>set start frame constraint </code></b></div></th>
+    <th bgcolor="#EEEEEE"><div align="left"><b><code>double</code></b></div></th>
+    <th bgcolor="#EEEEEE"><div align="left"><strong><code>current frame </code></strong></div></th>
+  </tr>
+  <tr>
+    <th bgcolor="#EEEEEE"><div align="left"><b><code>-startPosition (-sf) </code></b></div></th>
+    <th bgcolor="#EEEEEE"><div align="left"><b><code>set the start position of the constrained object </code></b></div></th>
+    <th bgcolor="#EEEEEE"><div align="left"><b><code>double</code></b> <b><code>double</code></b> <b><code>double</code></b></div></th>
+    <th bgcolor="#EEEEEE"><div align="left"><b><code>the translation on the constrained object </code></b></div></th>
+  </tr>
+<tr>
+    <th bgcolor="#EEEEEE"><div align="left"><b><code>-skip (-sk) </code></b></div></th>
+    <th bgcolor="#EEEEEE"><div align="left"><b><code>do not constrain a specfic axis. This flag can be used mulitple times and only one axis per flag. Valid axis are: x, y, z </code></b></div></th>
+    <th bgcolor="#EEEEEE"><div align="left"><b><code>string</code></b></div></th>
+    <th bgcolor="#EEEEEE"><div align="left"><b><code>all translate axes will be constrained</code></b></div></th>
+  </tr>
+</table>
+<p><strong>Examples:</strong></p>
+<p>// create a default constraint with the two selected objects. The first being the target, the second being the constrained.<br>
+sePushPullConstraint;</p>
+<p>// set the distance and start frame with pSphere1 pushing and pulling pCube1<br>
+  sePushPullConstraint -d 5 -sf 10 pSphere1 pCube1;</p>
+<p>// Constrain using selection skip the x and y axes.<br>
+sePushPullConstraint -sk x -sk y;</p>
+<p>// get help on the command<br>
+  help sePushPullConstraint
+</p>
+<h2>Node Attributes (9)</h2>
+<table border="0" width="100%">
+  <tr><th bgcolor="#CCCCCC" width="50%">Long name (short name)</th><th bgcolor="#CCCCCC" width="10%">Type</th><th bgcolor="#CCCCCC" width="20%">Default</th>
+  </tr>
+  <tr><td colspan="3"/></tr><tr bgcolor="#EEEEEE">
+  <td class="attrName" width="50%" valign="top"><b><code>targetWorldMatrix</code></b> 
+				(<b><code>twm</code></b>)				</td>
+  <td class="attrType" width="10%" valign="top">matrix</td>
+  <td class="attrType" width="20%" valign="top">identity</td>
+  </tr><tr><td class="attrComment" colspan="3"><table width="100%"><tr><td width="5%"/>
+    <td>input of the target transform world matrix (what will push or pull the constrained transform) </td>
+  </tr></table></td></tr>
+  <tr bgcolor="#EEEEEE">
+    <td class="attrName" valign="top"><b><code>constraintParentMatrix</code></b> (<b><code>cpm</code></b>) </td>
+    <td class="attrType" valign="top">matrix</td>
+    <td class="attrType" valign="top">identity</td>
+  </tr>
+  <tr>
+    <td class="attrComment" colspan="3"><table width="100%">
+      <tr>
+        <td width="5%"/>  
+        <td>the parent matrix of the constrained transform</td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr bgcolor="#EEEEEE">
+    <td class="attrName" valign="top"><b><code>inTime</code></b> (<b><code>it</code></b>) </td>
+    <td class="attrType" valign="top">time</td>
+    <td class="attrType" valign="top">1.0</td>
+  </tr>
+  <tr>
+    <td class="attrComment" colspan="3"><table width="100%">
+        <tr>
+          <td width="5%"/>  
+          <td>input time</td>
+        </tr>
+    </table></td>
+  </tr>
+  <tr bgcolor="#EEEEEE">
+    <td class="attrName" valign="top"><b><code>distance</code></b> (<b><code>dist</code></b>) </td>
+    <td class="attrType" valign="top">double</td>
+    <td class="attrType" valign="top">0.0</td>
+  </tr>
+  <tr>
+    <td class="attrComment" colspan="3"><table width="100%">
+        <tr>
+          <td width="5%"/>  
+          <td>the distance between the target and the constrained transforms </td>
+        </tr>
+    </table></td>
+  </tr>
+  <tr bgcolor="#EEEEEE">
+    <td class="attrName" valign="top"><b><code>startFrame</code></b> (<b><code>stf</code></b>) </td>
+    <td class="attrType" valign="top">double</td>
+    <td class="attrType" valign="top">1.0</td>
+  </tr>
+  <tr>
+    <td class="attrComment" colspan="3"><table width="100%">
+        <tr>
+          <td width="5%"/>  
+          <td>the start frame that the constraint is active </td>
+        </tr>
+    </table></td>
+  </tr>
+  <tr bgcolor="#EEEEEE">
+    <td class="attrName" valign="top"><b><code>push</code></b> (<b><code>psh</code></b>) </td>
+    <td class="attrType" valign="top">bool</td>
+    <td class="attrType" valign="top">on</td>
+  </tr>
+  <tr>
+    <td class="attrComment" colspan="3"><table width="100%">
+        <tr>
+          <td width="5%"/>  
+          <td>turn on or off the pushing effect on the constraint </td>
+        </tr>
+    </table></td>
+  </tr>
+  <tr bgcolor="#EEEEEE">
+    <td class="attrName" valign="top"><b><code>pull</code></b> (<b><code>pll</code></b>) </td>
+    <td class="attrType" valign="top">bool</td>
+    <td class="attrType" valign="top">on</td>
+  </tr>
+  <tr>
+    <td class="attrComment" colspan="3"><table width="100%">
+        <tr>
+          <td width="5%"/>  
+          <td>turn on or off the pulling effect on the constraint </td>
+        </tr>
+    </table></td>
+  </tr><tr><td colspan="3"/></tr><tr><td colspan="3"/></tr><tr><td colspan="3"/></tr><tr><td colspan="3"/></tr><tr><td colspan="3"/></tr><tr bgcolor="#EEEEEE"><td class="attrName" width="50%" valign="top"><b><code>constraintTranslate</code></b> 
+			(<b><code>ct</code></b>)
+				</td><td class="attrType" width="10%" valign="top">double3</td><td class="attrType" width="20%" valign="top">0.0, 0.0, 0.0</td>
+		</tr>
+		<tr><td class="attrComment" colspan="3"><table width="100%"><tr><td width="5%"/><td><mayadoc-comment>
+output point position
+		to the constrained transform </mayadoc-comment></td></tr></table></td></tr><tr><td colspan="3"/></tr><tr bgcolor="#EEEEEE">
+				<td class="attrName" width="50%" valign="top"><strong><code>start</code></strong><code><strong>Position</strong></code>(<b><code>sp</code></b>)				</td><td class="attrType" width="10%" valign="top">double3</td><td class="attrType" width="20%" valign="top">0.0, 0.0, 0.0</td>
+		</tr>
+		<tr><td class="attrComment" colspan="3"><table width="100%"><tr><td width="5%"/>
+		  <td>the start position of the constrained transform</td>
+</tr></table></td></tr></table>
+</body></html>
