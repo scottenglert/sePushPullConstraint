@@ -1,6 +1,7 @@
 <html><body>
 <h1 id="super">sePushPullConstraint</h1>
 <p>This dependency graph node is a tranformation constraint which has one target transform and one constrained transform connected. This node will push or pull the constrained object at a fixed distance from the target object. It will give the effect of a trailer attached to a hitch on a vehicle or something similar. Due to the dynamic nature of calculating the position of the constraint, time is an input to this node with a start frame and start position to activate and reset the position.</p>
+<p><b>Note:</b> The start frame is the frame where the constraint will be active and begin to push/pull. To reset the constrained transformed back to the "start position", you must go to a frame BEFORE the start frame. When the current frame is at or past the start frame, the constraint will begin to affect the constrained transform at it's current position. So in general, when playing back the result, begin playing at the frame before the start frame to be sure the constraint is reset.</p>
 <p>Included in this plugin is a mel command to automatically setup the connections and attributes for the two objects you want to use. Note: you may have to scrub the timeline to refresh the evaluation of the node once connected. </p>
 <p><strong>MEL command:</strong></p>
 <p>sePushPullConstraint [flags] [target] [constrained] </p>
